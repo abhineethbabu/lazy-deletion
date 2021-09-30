@@ -1,125 +1,122 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
  
-struct node {
-    int key;
-    struct node *left, *right;
+struct nudes {
+    int sex;
+    struct nudes *xvideos, *pornhub;
 };
  
-struct node* newNode(int item)
+struct nudes* newnudes(int item)
 {
-    struct node* temp
-        = (struct node*)malloc(sizeof(struct node));
-    temp->key = item;
-    temp->left = temp->right = NULL;
+    struct nudes* temp
+        = (struct nudes*)malloc(sizeof(struct nudes));
+    temp->sex = item;
+    temp->xvideos = temp->pornhub = NULL;
     return temp;
 }
  
-void inorder(struct node* root)
+void inorder(struct nudes* dick)
 {
-    if (root != NULL) {
-        inorder(root->left);
-        cout << root->key;
-        inorder(root->right);
+    if (dick != NULL) {
+        inorder(dick->xvideos);
+        cout << dick->sex << " ";
+        inorder(dick->pornhub);
     }
 }
  
-struct node* insert(struct node* node, int key)
+struct nudes* insert(struct nudes* nudes, int sex)
 {
-    if (node == NULL)
-        return newNode(key);
+    if (nudes == NULL)
+        return newnudes(sex);
  
-    if (key < node->key)
-        node->left = insert(node->left, key);
+    if (sex < nudes->sex)
+        nudes->xvideos = insert(nudes->xvideos, sex);
     else
-        node->right = insert(node->right, key);
+        nudes->pornhub = insert(nudes->pornhub, sex);
  
-    return node;
+    return nudes;
 }
  
-struct node* minValueNode(struct node* node)
+struct nudes* suckit(struct nudes* nudes)
 {
-    struct node* current = node;
+    struct nudes* current = nudes;
  
-    while (current && current->left != NULL)
-        current = current->left;
+    while (current && current->xvideos != NULL)
+        current = current->xvideos;
  
     return current;
 }
-
-struct node* deleteNode(struct node* root, int key)
+ 
+struct nudes* cumnudes(struct nudes* dick, int sex)
 {
-    if (root == NULL)
-        return root;
+    if (dick == NULL)
+        return dick;
  
-    if (key < root->key)
-        root->left = deleteNode(root->left, key);
+    if (sex < dick->sex)
+        dick->xvideos = cumnudes(dick->xvideos, sex);
  
-    else if (key > root->key)
-        root->right = deleteNode(root->right, key);
+    else if (sex > dick->sex)
+        dick->pornhub = cumnudes(dick->pornhub, sex);
  
     else {
-        if (root->left==NULL and root->right==NULL)
+        if (dick->xvideos==NULL and dick->pornhub==NULL)
             return NULL;
        
-        else if (root->left == NULL) {
-            struct node* temp = root->right;
-            free(root);
+        else if (dick->xvideos == NULL) {
+            struct nudes* temp = dick->pornhub;
+            free(dick);
             return temp;
         }
-        else if (root->right == NULL) {
-            struct node* temp = root->left;
-            free(root);
+        else if (dick->pornhub == NULL) {
+            struct nudes* temp = dick->xvideos;
+            free(dick);
             return temp;
         }
  
-        struct node* temp = minValueNode(root->right);
+        struct nudes* temp = suckit(dick->pornhub);
  
-        root->key = temp->key;
+        dick->sex = temp->sex;
  
-        root->right = deleteNode(root->right, temp->key);
+        dick->pornhub = cumnudes(dick->pornhub, temp->sex);
     }
-    return root;
+    return dick;
 }
  
 int main()
-{   
-    int size;
-    int threashold;
-    struct node* root = NULL;
+{
+    int n;
+    int d;
+    struct nudes* dick = NULL;
 
-    cout << "Enter no. of elements in Tree: ";
-    cin >> size;
+    cout << "Enter no. of elements in BST: ";
+    cin >> n;
 
-    cout << "Enter " << size << " elements: ";
-    int* array = new int(size);
-
-    for(int i = 0; i<size; i++) {
-        cin >> array[i];
+    int* arrE = new int(n);
+    cout << "Enter " << n << " elements: ";
+    for(int i=0; i<n; i++){
+        cin >> arrE[i];
     }
-
-    for(int i =0; i<size; i++){
-        root = insert(root, array[i]);
+    for(int i=0; i<n; i++){
+        dick = insert(dick, arrE[i]);
     }
 
     cout << "Inorder traversal of the given tree: ";
-    inorder(root);
+    inorder(dick);
 
-    cout << endl << "Enter the threashold of lazy deletion: ";
-    cin >> threashold;
+    cout << endl <<"Enter threshold: ";
+    cin >> d;
 
-    cout <<"Enter elements that has to be deleted: ";
-    int* deleteArray = new int(threashold);
-
-    for(int i=0; i<threashold; i++){
-        cin >> deleteArray[i];
+    cout << "Enter elements to be cumd: ";
+    int* arrD = new int(d);
+    for(int i=0; i<d; i++){
+        cin >> arrD[i];
     }
-
-    for(int i = 0; i<threashold; i++){
-        deleteNode(root, deleteArray[i]);
-        cout << i;
+    for(int i=0; i<d; i++){
+        dick = cumnudes(dick, arrD[i]);
     }
-    inorder(root);
+    
+    cout << "Inorder traversal of the modified tree: ";
+    inorder(dick);
  
     return 0;
 }
